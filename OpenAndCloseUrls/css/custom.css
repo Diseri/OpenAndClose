@@ -13,6 +13,9 @@ body, section {			/* Change width and height to own preferences */
 .hide{
 	display:none;
 }
+.clockStyle {
+    cursor:pointer
+}
 
 /* Basic style tweaks */
 section { padding: 5px;}

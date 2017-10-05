@@ -57,9 +57,11 @@ function onDocReady() {
             if (obj.Use) {
                 $('#spnStatus').text("Running");
                 $('#spnStatus').css('color', 'green');
+                $('#divSaveBtn').append('<img src="images/Happy.png" style="width:40px;float:right;" class="img-rounded" id="Moods">');
             } else {
                 $('#spnStatus').text("Stopped");
                 $('#spnStatus').css('color', 'red');
+                $('#divSaveBtn').append('<img src="images/Sad.png" style="width:40px;float:right;" class="img-rounded" id="Moods">');
             }
         } else {
             $('#spnStatus').text("Stopped");
@@ -101,7 +103,7 @@ function onDocReady() {
                         }
 
                     } else {
-                        $(wrapper).append('<div><table><tr><td><span id="weekCal' + i + '" class="weekCal"></span></td><td><a class="btnSetTime" style="float:left;margin-left:4px;margin-top:4px;border:none;background-color:transparent;"><img src="images/Clock2.png" alt="Now" /></a><input style="width:80%;" type="text" name="txtOpenTimes" class="openTimesT form-control input-sm" value="' + newVal[1] + '" required placeholder="Time"/></td><td><input title="Set to zero to keep it open indefinitely." class="minutesT form-control input-sm" type="number" value="' + newVal[2] + '" name="txtDuration" min="0" step="1" data-bind="value:txtDuration" required placeholder="(Duration) Minutes" /></td><td><input type="text" class="urlT form-control input-sm" value="' + (newVal[3] != undefined && newVal[3] != '' ? newVal[3] : '') + '" placeholder="Url To Open (Optional)" /></td><td style="text-align:center;">Toggle?<input style="width:30%;" type="checkbox" title="This will ensure that it switches to the desired tab/url/page." class="toggle" id="cbToggle" placeholder="Toggle?" ' + ($.parseJSON(newVal[4]) ? 'checked' : '') + ' /></td><td><input id="txtToggleDurationTT" title="Set to zero if not being used." value="0" class="secondsT form-control input-sm" type="number" name="txtToggleDuration" min="0" step="1" data-bind="value:txtToggleDuration" value="' + newVal[5] + '" ' + (!$.parseJSON(newVal[4]) ? 'disabled=false' : '') + ' required placeholder="Toggle for (Seconds)"/></td><td><a href="#" class="remove_field">Remove</a></td></tr></table></div>'); //add input box
+                        $(wrapper).append('<div><table><tr><td><span id="weekCal' + i + '" class="weekCal"></span></td><td><a class="btnSetTime" style="float:left;margin-left:4px;margin-top:4px;margin-right:3px;border:none;background-color:transparent;"><img src="images/Clock2.png" class="clockStyle" alt="Now" title="Will set the Start Time to the current time." /></a><input style="width:80%;" type="text" name="txtOpenTimes" class="openTimesT form-control input-sm" value="' +newVal[1]+ '" required placeholder="Time"/></td><td><input title="(Minutes) Set to zero to keep it open indefinitely." class="minutesT form-control input-sm" type="number" value="' +newVal[2]+ '" name="txtDuration" min="0" step="1" data-bind="value:txtDuration" required placeholder="(Duration) Minutes" /></td><td><input type="text" class="urlT form-control input-sm" value="' +(newVal[3] != undefined && newVal[3] != '' ? newVal[3]: '') + '" placeholder="Url To Open (Optional)" /></td><td style="text-align:center;">Toggle?<input style="width:30%;" type="checkbox" title="This ensures that your tab will be selected and displayed for the total amount of seconds you specified." class="toggle" id="cbToggle" placeholder="Toggle?" ' +($.parseJSON(newVal[4]) ? 'checked' : '') + ' /></td><td><input id="txtToggleDurationTT" title="(Seconds) Set to zero if not being used." value="0" class="secondsT form-control input-sm" type="number" name="txtToggleDuration" min="0" step="1" data-bind="value:txtToggleDuration" value="' + newVal[5]+ '" ' +(!$.parseJSON(newVal[4]) ? 'disabled=false' : '') + ' required placeholder="Toggle for (Seconds)"/></td><td><a href="#" class="remove_field">Remove</a></td></tr></table></div>'); //add input box
                         var w = $('#weekCal' + i).weekLine({
                             onChange: function () {
                                 setSaveBtnEnable(true);
@@ -336,12 +338,15 @@ document.addEventListener('DOMContentLoaded', function () {
 chrome.extension.onRequest.addListener(function (request, sender) {
     if (request) {
         if (request.message) {
+            $('#Moods').remove();
             if (request.message == 'Running') {
                 $('#spnStatus').text("Running");
                 $('#spnStatus').css('color', 'green');
+                $('#divSaveBtn').append('<img src="images/Happy.png" style="width:40px;float:right;" class="img-rounded" id="Moods">');
             } else {
                 $('#spnStatus').text("Stopped");
                 $('#spnStatus').css('color', 'red');
+                $('#divSaveBtn').append('<img src="images/Sad.png" style="width:40px;float:right;" class="img-rounded" id="Moods">');
             }
         }
         else if (request.storage) {
@@ -387,7 +392,7 @@ $(document).ready(function () {
         if (x < max_fields) { //max input box allowed
             x++; //text box increment
 
-            $(wrapper).append('<div><table><tr><td><span id="weekCal' + x + '" class="weekCal"></span></td><td><a class="btnSetTime" style="float:left;margin-left:4px;margin-top:4px;border:none;background-color:transparent;"><img src="images/Clock2.png" alt="Now" /></a><input style="width:80%;" type="text" name="txtOpenTimes" class="openTimesT form-control input-sm" required placeholder="Time"/></td><td><input title="Set to zero to keep it open indefinitely." class="minutesT form-control input-sm" type="number" name="txtDuration" min="0" step="1" data-bind="value:txtDuration" required placeholder="(Duration) Minutes" /></td><td><input type="text" class="urlT form-control input-sm" placeholder="Url To Open (Optional)" /></td><td style="text-align:center;">Toggle?<input style="width:30%;" type="checkbox" class="toggle" id="cbToggle" placeholder="Toggle?" title="This will ensure that it switches to the desired tab/url/page." /></td><td><input id="txtToggleDurationTT" title="Set to zero if not being used." value="0" class="secondsT form-control input-sm" type="number" name="txtToggleDuration" disabled=true min="0" step="1" data-bind="value:txtToggleDuration" required placeholder="Toggle for (Seconds)"/></td><td><a href="#" class="remove_field">Remove</a></td></tr></table></div>'); //add input box				
+            $(wrapper).append('<div><table><tr><td><span id="weekCal' + x + '" class="weekCal"></span></td><td><a class="btnSetTime" style="float:left;margin-left:4px;margin-top:4px;margin-right:3px;border:none;background-color:transparent;"><img src="images/Clock2.png" class="clockStyle" alt="Now" title="Will set the Start Time to the current time." /></a><input style="width:80%;" type="text" name="txtOpenTimes" class="openTimesT form-control input-sm" required placeholder="Time"/></td><td><input title="(Minutes) Set to zero to keep it open indefinitely." class="minutesT form-control input-sm" type="number" name="txtDuration" min="0" step="1" data-bind="value:txtDuration" required placeholder="(Duration) Minutes" /></td><td><input type="text" class="urlT form-control input-sm" placeholder="Url To Open (Optional)" /></td><td style="text-align:center;">Toggle?<input style="width:30%;" type="checkbox" class="toggle" id="cbToggle" placeholder="Toggle?" title="This ensures that your tab will be selected and displayed for the total amount of seconds you specified." /></td><td><input id="txtToggleDurationTT" title="(Seconds) Set to zero if not being used." value="0" class="secondsT form-control input-sm" type="number" name="txtToggleDuration" disabled=true min="0" step="1" data-bind="value:txtToggleDuration" required placeholder="Toggle for (Seconds)"/></td><td><a href="#" class="remove_field">Remove</a></td></tr></table></div>'); //add input box				
             $('.openTimesT').each(function () {
                 $(this).datetimepicker({
                     datepicker: false,

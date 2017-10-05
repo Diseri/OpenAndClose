@@ -37,19 +37,19 @@
                         <tr>
                             <td><span id="weekCal"></span></td>
                             <td>
-                                <a id="btnSetTime" style="float:left;margin-left:4px;margin-top:4px;border:none;background-color:transparent;"><img src="images/Clock2.png" alt="Now" /></a><input style="width:80%;" type="text" class="openTimesT form-control input-sm" name="mytext[]" id="txtOpenTimeTT" required placeholder="Time" />
+                                <a id="btnSetTime" style="float:left;margin-left:4px;margin-top:4px;margin-right:3px;border:none;background-color:transparent;"><img src="images/Clock2.png" class="clockStyle" alt="Now" title="Will set the Start Time to the current time."/></a><input style="width:80%;" type="text" class="openTimesT form-control input-sm" name="mytext[]" id="txtOpenTimeTT" required placeholder="Time" />
                             </td>
                             <td>
-                                <input id="txtDurationTT" title="Set to zero to keep it open indefinitely." class="minutesT form-control input-sm" type="number" name="txtDuration" min="0" step="1" data-bind="value:txtDuration" required placeholder="(Duration) Minutes" />
+                                <input id="txtDurationTT" title="(Minutes) Set to zero to keep it open indefinitely." class="minutesT form-control input-sm" type="number" name="txtDuration" min="0" step="1" data-bind="value:txtDuration" required placeholder="(Duration) Minutes" />
                             </td>
                             <td>
                                 <input type="text" class="urlT form-control input-sm" id="urlT" placeholder="Url To Open (Optional)" />
                             </td>
                             <td style="text-align:center;">
-                                Toggle?<input style="width:30%;" title="This will ensure that it switches to the desired tab/url/page." type="checkbox" class="toggle" id="cbToggle" placeholder="Toggle?" />
+                                Toggle?<input style="width:30%;" title="This ensures that your tab will be selected and displayed for the total amount of seconds you specified." type="checkbox" class="toggle" id="cbToggle" placeholder="Toggle?" />
                             </td>
                             <td>
-                                <input id="txtToggleDurationTT" title="Set to zero if not being used." value="0" class="secondsT form-control input-sm" type="number" name="txtToggleDuration" min="0" step="1" data-bind="value:txtToggleDuration" required placeholder="Toggle for (Seconds)" />
+                                <input id="txtToggleDurationTT" title="(Seconds) Set to zero if not being used." value="0" class="secondsT form-control input-sm" type="number" name="txtToggleDuration" min="0" step="1" data-bind="value:txtToggleDuration" required placeholder="Toggle for (Seconds)" />
                             </td>
                             <td></td>
                         </tr>

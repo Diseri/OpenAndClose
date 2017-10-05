@@ -1,7 +1,7 @@
 {
  "manifest_version": 2,
 
-  "version": "2.6",
+  "version": "2.7",
   "name": "Open And Closes",
   "options_page": "popup.html",
   "description": "This extension will Open and Close tabs by config",

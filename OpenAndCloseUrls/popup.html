@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Open and Close</title>
+	<!-- Scripts -->
+	<script language="JavaScript" type="text/javascript" src="js/jquery-3.2.1.js"></script>
+	<script language="JavaScript" type="text/javascript" src="js/jquery.datetimepicker.full.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Cascading Style Sheets -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/custom.css" rel="stylesheet" media="screen">	
+	<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+	
+	<link rel="Stylesheet" href="css/cleanslate.css" />
+ <link rel="Stylesheet" href="css/jquery.weekLine.css" />
+ <script src="js/jquery.weekLine.js"></script> 
+ 
+    <script src="popup.js"></script>
+  </head>
+  <form>
+  <body style="width:300px;height:600px;">
+  <div class="container">
+  <div class="col-lg-12">
+		<img src="images/OCLogoMini.png" class="img-rounded"><h1 style="float:right;">Options</h1>
+		<hr/>
+		<h4 title="This is the page that you want to keep as your active/display page.">Storage Type (Autosaves on selection):</h4> 
+		<div class="radio">
+			<label><input id="cbLocal" type="radio" name="optradio" title="Only saves and loads from local storage." checked>Local Computer</label>
+		</div>
+		<div class="radio">
+			<label><input id="cbAccount" type="radio" name="optradio" title="Your settings are synced across all Chrome browsers where you are signed in.">Google Account</label>
+		</div>
+		<!-- <h4 title="This is the page that you want to keep as your active/display page.">Display Page:</h4>  -->
+		<!-- <input type="text" id="txtUrltoNavigateTo" required placeholder="Url" class="form-control input-sm required"  /> -->
+		<!-- <h4 title="This page will contain music or a music video Page(Url) that you would like to stream. Will only load if no page was specified in below toggle options">Page to Toggle:</h4>  -->
+		<!-- <input type="text" id="txtUrl" required placeholder="Url" class="form-control input-sm" /> -->
+		<h4 title="This is the Time interval you would like to open the Toggle Page in everyday.">Toggle Options:</h4> 
+		<div class="input_fields_wrap">
+			
+			<div>
+			<table>
+				<tr>
+					<td><span id="weekCal"></span></td>
+					<td>
+						<a id="btnSetTime" style="float:left;margin-left:4px;margin-top:4px;border:none;background-color:transparent;"><img src="images/Clock2.png" alt="Now" /></a><input style="width:80%;" type="text" class="openTimesT form-control input-sm" name="mytext[]" id="txtOpenTimeTT" required placeholder="Time" />
+					</td>
+					<td>
+						<input id="txtDurationTT" title="Set to zero to keep it open indefinitely." class="minutesT form-control input-sm" type="number" name="txtDuration" min="0" step="1" data-bind="value:txtDuration" required placeholder="(Duration) Minutes"/>
+					</td>
+					<td>
+						<input type="text" class="urlT form-control input-sm" id="urlT" placeholder="Url To Open (Optional)" />
+					</td>
+					<td style="text-align:center;">
+						Toggle?<input style="width:30%;" title="This will ensure that it switches to the desired tab/url/page." type="checkbox" class="toggle" id="cbToggle" placeholder="Toggle?" />
+					</td>
+					<td>
+						<input id="txtToggleDurationTT" title="Set to zero if not being used." value="0" class="secondsT form-control input-sm" type="number" name="txtToggleDuration" min="0" step="1" data-bind="value:txtToggleDuration" required placeholder="Toggle for (Seconds)"/>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+				
+				
+				
+			</div>
+			
+		</div>
+		<button style="margin-top:3px;" class="add_field_button btn btn-primary">Add Toggle</button>
+		<hr/>
+		<div id="divSaveBtn">
+
+		
+			<button type="submit" id="btnSave" class="btn btn-info" disabled=true>
+				<span id="spanBtnText">No Changes Made</span>
+			</button>
+			<h4 style="font-weight:bold;float:right;" id="spnStatus"></h4>
+		</div>
+	</div>
+	</div>
+	<!-- <input type="text" class="form-control input-sm" id="txtDate" required placeholder="date" /> -->
+	</form>
+	
+	
+  </body>
+</html>

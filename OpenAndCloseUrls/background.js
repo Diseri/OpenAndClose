@@ -1,6 +1,5 @@
 var timerUniqueId = '';
 var secondTimerUniqueId = '';
-//var uniqueID = '';
 var chromeStorage;
 var openNow = true;
 var taburlId = "";
@@ -8,8 +7,8 @@ var tabUrltoNavigateToId = "";
 var tabUrl = false;
 var tabUrltoNavigateTo = false;
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.storage.local.get("chromeStorage", function(obj) {
+chrome.browserAction.onClicked.addListener(function (tab) {
+    chrome.storage.local.get("chromeStorage", function (obj) {
         if (obj) {
             if (obj.chromeStorage) {
                 if (obj.chromeStorage == 'local') {
@@ -24,14 +23,14 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 
 function executeAfterMessageRecieved() {
-    chromeStorage.get("Use", function(obj) {
+    chromeStorage.get("Use", function (obj) {
         if (obj) {
             if (obj.Use) {
                 chromeStorage.set({
                     'Use': false
-                }, function() {
+                }, function () {
                     StopProcess();
-					runNow = false;
+                    runNow = false;
                     chrome.browserAction.setIcon({
                         path: "images/RedIcon.png"
                     });
@@ -46,7 +45,7 @@ function executeAfterMessageRecieved() {
             } else {
                 chromeStorage.set({
                     'Use': true
-                }, function() {
+                }, function () {
                     chrome.browserAction.setIcon({
                         path: "images/GreenIcon.png"
                     });
@@ -57,8 +56,7 @@ function executeAfterMessageRecieved() {
                         message: "Running"
                     });
 
-                    //OpenDisplayPage();
-					runNow = true;
+                    runNow = true;
                     StartProcess();
                     startToggleTimer(0);
                 });
@@ -67,22 +65,9 @@ function executeAfterMessageRecieved() {
     });
 }
 
-// chrome.extension.onRequest.addListener(function(request, sender) {
-// if (request) {
-// if(request.storage) {
-// if(request.storage == 'local') {
-// chromeStorage = chrome.storage.local;
-// }
-// else {
-// chromeStorage = chrome.storage.sync;
-// }
-
-// }
-// }
-// });
 // Accepts Interger as the value.
 function tabExists(value) {
-    chrome.tabs.query({}, function(tabs) {
+    chrome.tabs.query({}, function (tabs) {
         for (var i = 0; i < tabs.length; i++) {
             if (tabs[i].id == value) {
                 return true;
@@ -93,7 +78,7 @@ function tabExists(value) {
 }
 
 function StopProcess() {
-	runNow = false;
+    runNow = false;
     if (timerUniqueId != '')
         clearTimeout(timerUniqueId);
     if (secondTimerUniqueId != '')
@@ -104,7 +89,7 @@ function StopProcess() {
 }
 
 function OpenDisplayPage() {
-    chromeStorage.get("UrltoNavigateTo", function(obj) {
+    chromeStorage.get("UrltoNavigateTo", function (obj) {
         if (obj) {
             if (obj.UrltoNavigateTo) {
                 var newURL = obj.UrltoNavigateTo;
@@ -124,7 +109,7 @@ function StartProcess() {
 
 var readyToOpen = true;
 function startTimer() {
-    var timerUniqueId = setTimeout(function() {
+    var timerUniqueId = setTimeout(function () {
         OpenPage();
         clearTimeout(timerUniqueId);
         startTimer();
@@ -132,7 +117,7 @@ function startTimer() {
 }
 
 function startSecondTimer() {
-    secondTimerUniqueId = setTimeout(function() {
+    secondTimerUniqueId = setTimeout(function () {
         if (tabUrltoNavigateToId != '')
             setTabActive(tabUrltoNavigateToId, false);
     }, 3000);
@@ -154,14 +139,14 @@ function startToggleTimer(proceedingIndex) {
         var checkToggle = options.toggle == "false" ? false : true;
 
         if (checkToggle) {
-			if(runNow && !waitingForPageLoad) {
-				setNewTabActiveTimer(toggles.tabId, parseInt(options.toggleDuration) * 1000, proceedingIndex);
-				cContinue = false;
-			}
+            if (runNow && !waitingForPageLoad) {
+                setNewTabActiveTimer(toggles.tabId, parseInt(options.toggleDuration) * 1000, proceedingIndex);
+                cContinue = false;
+            }
         }
     } else {
         proceedingIndex = 0;
-		cContinue = true;
+        cContinue = true;
     }
     if (cContinue)
         proceed(allotedTime, proceedingIndex);
@@ -169,12 +154,11 @@ function startToggleTimer(proceedingIndex) {
 
 var runNow = true;
 function proceed(allotedTime, proceedingIndex) {
-	// if(runNow && !waitingForPageLoad)
-		var toggleTimerId = setTimeout(function() {
-			var newIndex = proceedingIndex + 1;
-			startToggleTimer(newIndex);
-			clearTimeout(toggleTimerId);
-		}, allotedTime);
+    var toggleTimerId = setTimeout(function () {
+        var newIndex = proceedingIndex + 1;
+        startToggleTimer(newIndex);
+        clearTimeout(toggleTimerId);
+    }, allotedTime);
 }
 
 var timeslotAvailable = true;
@@ -183,15 +167,14 @@ var waitingForPageLoad = false;
 function setNewTabActiveTimer(tabId, millisecs, index) {
     timeslotAvailable = false;
     setTabActive(tabId, false);
-	toggleTimerEvent(millisecs, index);
+    toggleTimerEvent(millisecs, index);
 }
 
 function toggleTimerEvent(millisecs, index) {
-	    var id = setTimeout(function() {
+    var id = setTimeout(function () {
 
         cContinue = true;
-		// if(runNow && !waitingForPageLoad)
-			startToggleTimer(index + 1);
+        startToggleTimer(index + 1);
 
         timeslotAvailable = true;
         clearTimeout(id);
@@ -214,7 +197,7 @@ function startTimerDurationV2(tabId, duration) {
 }
 
 function removeTabs(tabId, milliseconds) {
-    var uniqueID = setTimeout(function() {
+    var uniqueID = setTimeout(function () {
         for (var i = 0; i < tabArray.length; i++) {
             var toggles = tabArray[i];
 
@@ -230,7 +213,7 @@ function removeTabs(tabId, milliseconds) {
 var durationNext = '';
 
 function OpenPage() {
-    chromeStorage.get("ComboSetup", function(obj) {
+    chromeStorage.get("ComboSetup", function (obj) {
         if (obj) {
             if (obj.ComboSetup) {
                 clearTimeout(timerUniqueId);
@@ -241,7 +224,7 @@ function OpenPage() {
 }
 
 function ValidateActioning(ComboSetup) {
-	readyToOpen = false;
+    readyToOpen = false;
     var d = new Date();
     var hours = d.getHours();
     var minutes = d.getMinutes();
@@ -259,7 +242,7 @@ function ValidateActioning(ComboSetup) {
     var n = weekday[d.getDay()];
     var openTime = ComboSetup;
     var timeOut = 5000;
-	
+
     for (var i = 0; i < openTime.length; i++) {
         var newVal = openTime[i].split('-----');
         var days = newVal[0].split(',');
@@ -275,8 +258,8 @@ function ValidateActioning(ComboSetup) {
                         toggle: newVal[4],
                         toggleDuration: newVal[5]
                     };
-				if(!waitingForPageLoad)
-                    OpenNewPage(timeOut, newItem);
+                    if (!waitingForPageLoad)
+                        OpenNewPage(timeOut, newItem);
                     timeOut = timeOut + 5000;
                     openNow = false;
                 }
@@ -294,93 +277,93 @@ function tabExistsInArray(url) {
 }
 
 function OpenNewPage(timeout, toggleOptions) {
-    var waitforUrl = setTimeout(function() {
-		if(!waitingForPageLoad && runNow)
-        if (toggleOptions.url != '') {
-            var exists = tabExistsInArray(toggleOptions.url);
-            if (!exists) {
-				waitingForPageLoad = true;
-                chrome.tabs.create({
+    var waitforUrl = setTimeout(function () {
+        if (!waitingForPageLoad && runNow)
+            if (toggleOptions.url != '') {
+                var exists = tabExistsInArray(toggleOptions.url);
+                if (!exists) {
+                    waitingForPageLoad = true;
+                    chrome.tabs.create({
                         url: toggleOptions.url
                     },
-                    function(tab) {
-                        var newItem = {
-                            tabId: tab.id,
-                            duration: toggleOptions.duration,
-                            durationTimerStarted: false,
-                            Options: toggleOptions
-                        };
-                        tabArray.push(newItem);
-                        setTabActive(tab.id, true);
+                        function (tab) {
+                            var newItem = {
+                                tabId: tab.id,
+                                duration: toggleOptions.duration,
+                                durationTimerStarted: false,
+                                Options: toggleOptions
+                            };
+                            tabArray.push(newItem);
+                            setTabActive(tab.id, true);
+                        });
+                }
+            } else {
+                if (!waitingForPageLoad && runNow)
+                    chromeStorage.get("url", function (obj) {
+                        if (obj) {
+                            if (obj.url) {
+                                var exists = tabExistsInArray(obj.url);
+                                if (!exists) {
+                                    waitingForPageLoad = true;
+                                    chrome.tabs.create({
+                                        url: obj.url
+                                    },
+                                        function (tab) {
+                                            var newItem = {
+                                                tabId: tab.id,
+                                                duration: toggleOptions.duration,
+                                                durationTimerStarted: false,
+                                                Options: toggleOptions
+                                            };
+                                            tabArray.push(newItem);
+                                            setTabActive(tab.id, true);
+                                        });
+                                }
+                            }
+                        }
                     });
             }
-        } else {
-			if(!waitingForPageLoad && runNow)
-            chromeStorage.get("url", function(obj) {
-                if (obj) {
-                    if (obj.url) {
-                        var exists = tabExistsInArray(obj.url);
-                        if (!exists) {
-							waitingForPageLoad = true;
-                            chrome.tabs.create({
-                                    url: obj.url
-                                },
-                                function(tab) {
-                                    var newItem = {
-                                        tabId: tab.id,
-                                        duration: toggleOptions.duration,
-                                        durationTimerStarted: false,
-                                        Options: toggleOptions
-                                    };
-                                    tabArray.push(newItem);
-                                    setTabActive(tab.id, true);
-                                });
-                        }
-                    }
-                }
-            });
-        }
-		readyToOpen = true;
+        readyToOpen = true;
         clearTimeout(waitforUrl);
     }, timeout);
 }
 var tabArray = [];
 var tabArray2 = [];
 
-chrome.tabs.onCreated.addListener(function(tab) {
+chrome.tabs.onCreated.addListener(function (tab) {
 
 });
 
-chrome.tabs.onRemoved.addListener(function(tabId, info) {
+chrome.tabs.onRemoved.addListener(function (tabId, info) {
     for (var i = 0; i < tabArray.length; i++) {
         var toggles = tabArray[i];
 
         if (tabId == toggles.tabId)
             tabArray.splice(i, 1);
     }
-	
-	waitingForPageLoad = false;
+
+    waitingForPageLoad = false;
 });
 
-chrome.windows.onRemoved.addListener(function(windowId){
-                  chrome.storage.local.set({
-                    'Use': false
-                }, function() {
-                    StopProcess();
-                    chrome.browserAction.setIcon({
-                        path: "images/RedIcon.png"
-                    });
-                    chrome.browserAction.setTitle({
-                        title: "Open and Close: Stopped!"
-                    });
-                    chrome.extension.sendRequest({
-                        message: "Stopped"
-                    });
+chrome.windows.onRemoved.addListener(function (windowId) {
+    chrome.storage.local.set({
+        'Use': false
+    }, function () {
+        StopProcess();
+        chrome.browserAction.setIcon({
+            path: "images/RedIcon.png"
+        });
+        chrome.browserAction.setTitle({
+            title: "Open and Close: Stopped!"
+        });
+        chrome.extension.sendRequest({
+            message: "Stopped"
+        });
 
-                });
+    });
 });
 
-chrome.tabs.onUpdated.addListener(function(tabId, info) {
+chrome.tabs.onUpdated.addListener(function (tabId, info) {
     if (info.status === 'complete') {
         if (tabArray.length > 0) {
             for (var i = 0; i < tabArray.length; i++) {
@@ -395,27 +378,25 @@ chrome.tabs.onUpdated.addListener(function(tabId, info) {
 });
 
 function setTabActive(newTabId, addDelay) {
-	if(addDelay)
-	{
-	    var timerUniqueId = setTimeout(function() {
-			afterWaitTimerEvent(newTabId, timerUniqueId);
-		}, 3000);
-	}
-	else
-	{
-		if(!waitingForPageLoad)
-			finalActive(newTabId);
-	}
+    if (addDelay) {
+        var timerUniqueId = setTimeout(function () {
+            afterWaitTimerEvent(newTabId, timerUniqueId);
+        }, 3000);
+    }
+    else {
+        if (!waitingForPageLoad)
+            finalActive(newTabId);
+    }
 }
 
 function afterWaitTimerEvent(newTabId, timerId) {
-	waitingForPageLoad = false;
-	finalActive(newTabId);
-	clearTimeout(timerId);
+    waitingForPageLoad = false;
+    finalActive(newTabId);
+    clearTimeout(timerId);
 }
 
 function finalActive(newTabId) {
-	    chrome.tabs.update(newTabId, {
+    chrome.tabs.update(newTabId, {
         selected: true
     });
     chrome.tabs.update(newTabId, {

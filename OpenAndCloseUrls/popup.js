@@ -214,6 +214,7 @@ $(document).ready(function () {
             setSaveBtnEnable(true);
         }
     });
+
     $('#cbLocal').change(function () {
         var cblocaljs = document.getElementById('cbLocal').checked;
         var cbAccountjs = document.getElementById('cbAccount').checked;
@@ -228,8 +229,6 @@ $(document).ready(function () {
             chrome.storage.local.set({
                 'chromeStorage': 'account'
             }, function () { window.location.href = window.location.href; });
-
-
     });
 
     $('#cbAccount').change(function () {
@@ -246,8 +245,6 @@ $(document).ready(function () {
             chrome.storage.local.set({
                 'chromeStorage': 'account'
             }, function () { window.location.href = window.location.href; });
-
-
     });
 
 });
@@ -372,13 +369,7 @@ function getlastElement() {
         return $('.weekCal').length;
     else
         return 0;
-
 }
-
-$('.btnSetTime').on("click", function () {
-    var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
-    alert('you clicked on button #' + clickedBtnID);
-});
 
 $(document).ready(function () {
     var max_fields = 10; //maximum input boxes allowed
